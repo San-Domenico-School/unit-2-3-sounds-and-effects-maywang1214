@@ -45,6 +45,10 @@ public class PlayerController : MonoBehaviour
         {
             isOnGround = true;
         }
+        else if (collision.gameObject.tag == "Obstacles")
+        {
+            gameOver = true;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
