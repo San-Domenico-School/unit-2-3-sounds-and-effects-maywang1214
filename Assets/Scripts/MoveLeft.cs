@@ -26,7 +26,7 @@ public class MoveLeft : MonoBehaviour
         {
             transform.Translate(Vector3.left * Time.deltaTime * speed);
         }
-        if(transform.position.x < -9 && gameObject.tag == "Obstacles")
+        if(transform.position.x < leftBound && gameObject.tag == "Obstacles")
         {
             Destroy(gameObject);
         }
