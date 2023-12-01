@@ -12,7 +12,6 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField] GameObject obstaclePrefab;
-    private PlayerController playerControllerScript;
     private Vector3 SpawnPos = new Vector3(25, 0, -2);
     private float startDelay = 2;
     private float repeatRate = 2;
@@ -20,13 +19,12 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         InvokeRepeating("SpawnObstacle", startDelay, repeatRate);
-        playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
     }
 
     void SpawnObstacle()
     {
         Instantiate(obstaclePrefab, SpawnPos, obstaclePrefab.transform.rotation);
-        if(playerControllerScript.gameOver)
+        if(GameManager.gameOver)
         {
             CancelInvoke();
         }

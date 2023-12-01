@@ -21,8 +21,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRb;
     private bool isOnGround;
 
-    public bool gameOver { get; private set; }
-
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
@@ -35,7 +33,7 @@ public class PlayerController : MonoBehaviour
 
     void OnJump(InputValue input)
     {
-        if (isOnGround && !gameOver)
+        if (isOnGround && !GameManager.gameOver)
         {
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isOnGround = false;
@@ -47,7 +45,7 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "Ground")
+        if (collision.gameObject.name == "Ground" && !GameManager.gameOver)
         {
             isOnGround = true;
             dirtParticle.Play();
@@ -55,7 +53,7 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Obstacles"))
         {
-            gameOver = true;
+            GameManager.gameOver = true;
             playAnimation.SetBool("Death_b", true);
             playAnimation.SetInteger("DeathType_int", 1);
             explosionParticle.Play();
@@ -66,6 +64,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.CompareTag("Scoreable"))
+        {
+            GameManager.ChangeScore(5);
+        }
     }
 }
