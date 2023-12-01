@@ -47,6 +47,14 @@ public class GameManager : MonoBehaviour
                 timeRemainingText.text = "Game\nOver";
             }
         }
+        else
+        {
+            timeRemainingText.text = "";
+        }
+        if (gameOver == true)
+        {
+            timeRemainingText.text = "Game\nOver";
+        }
     }
 
     private void TimeCountdown()
